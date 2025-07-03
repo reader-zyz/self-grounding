@@ -1,0 +1,45 @@
+{
+  "gripper": {
+    "functionality": {
+      "grasping_and_placing": "Capable of grasping and placing operations. After grasping an object, the robot will automatically proceed to the trash bin for disposal and return to the original position."
+    },
+    "properties": {
+      "operational_range": "0.08",
+      "maximum_working_distance": "1"
+    },
+    "affordances": {
+      "paper_wad": "The gripper can clean paper wads.",
+      "soda_can": "The gripper can clean soda cans, but may cause liquid spillage due to residual liquid inside.",
+      "bottle": "The gripper can clean plastic bottles.",
+      "block": "The gripper can clean toy blocks."
+    }
+  },
+  "vacuum": {
+    "functionality": {
+      "suction": "Capable of absorbing water stains, liquids, and small debris on flat surfaces."
+    },
+    "properties": {
+      "operational_range": "0.05",
+      "maximum_working_distance": "1"
+    },
+    "affordances": {
+      "water_stain": "The vacuum tool is suitable for cleaning water stains on flat surfaces (e.g., tabletops), but not effective on curved surfaces (e.g., urinals).",
+      "dust": "The vacuum can effectively remove dust from smooth and accessible surfaces.",
+      "hair": "The vacuum can collect loose hair on floors."
+    }
+  },
+  "sprayer": {
+    "functionality": {
+      "spraying": "Capable of spraying water to loosen and remove small stains. Effective for surface-level cleaning tasks involving liquid and solid residues."
+    },
+    "properties": {
+      "operational_range": "0.2",
+      "maximum_working_distance": "1"
+    },
+    "affordances": {
+      "liquid_stain": "The sprayer can clean liquid stains, but may leave additional water residue.",
+      "stain": "The sprayer can clean general stains on surfaces.",
+      "food_spill": "The sprayer can loosen food residues on countertops or floors, especially sticky or dried materials."
+    }
+  }
+}

@@ -1,0 +1,22 @@
+<s>system,,text,,You are the visual understanding component of a cleaning robot. You will receive an image captured by the robot's camera. You need to analyze the areas in the image that need cleaning and identify their names, guiding the robot to move to these areas for further work.
+Your cleaning principles are: throw suitable solid waste into the trash can, suction suitable liquid waste into the onboard waste liquid tank, and dry or blow dry any water stains.
+Your navigation points typically include furniture, floor trash, sanitary equipment, etc.
+<s>user,,image_url,,<image>
+<s>user,,text,,What objects are in the image?
+<s><question><temperature=0.0>
+<s>user,,text,,Objects refer to items that need cleaning, and scenes refer to larger items or furniture. Please analyze the objects and scenes in the image that may need cleaning, and output their labels as the robot's navigation points for subsequent tasks.
+If none, output "none".
+<s><question><temperature=0.0>
+<s>user,,text,,You need to aggregate these navigation points. The goal is that if two navigation points are essentially the same place, the robot should only navigate to that point once. If none, no action is needed.
+For the objects in the navigation points, if they are contained within a scene (e.g., placed on or located inside a scene), you need to aggregate the object with the scene as a single navigation point, generally expressed as "scene with object". If none, no action is needed.
+If there is no clear direct relationship between an object and a scene, do not combine them. Especially when two objects are very close in pixel distance in the image, do not combine them just because of proximity. Carefully consider their possible positional relationships.
+A large scene refers to the floor, walls, etc., which the robot cannot navigate to. Do not aggregate objects with large scenes. Delete any large scenes from the navigation points. If none, no action is needed.
+Please perform the aggregation analysis based on the navigation points in the scene. For the objects you wish to aggregate, analyze whether their relationship with the scene meets the requirements.
+<s><question><temperature=0.3>
+<s>user,,text,,What are the current navigation points in the image? Including objects and scenes that may need cleaning? If none, output "none".
+<s><question><temperature=0.0>
+<s>user,,text,,Please add some general modifiers like color to these navigation points based on the previous answer.
+If no navigation points, output "none".
+Output these labels in the format: {adjective navigation point1}:navigation point1,...
+You need to replace the content inside the braces and remove the braces, and the ellipsis represents similar repeated formats. Do not output any other irrelevant content or characters.
+<s><question><temperature=0.0>

@@ -1,0 +1,22 @@
+<s>system,,text,,You are a tool manual administrator. You will receive some new labels along with the current manual content. You need to compare the differences between them and update the manual labels accordingly to facilitate subsequent module updates.
+The new labels are "<text>".
+The new labels often contain descriptive words. Please extract a single noun from each object label to replace these new labels. All subsequent analysis is based on the replaced labels.
+<s><question><temperature=0.0>
+<s>user,,text,,The current manual labels are:
+"<text>"
+Please analyze each label in the new labels according to the following requirements:
+If there are labels in the manual with similar meanings, such as similar material or shape, use the label from the manual to replace the new label.
+If there are no similar labels, add the new label to the manual.
+Do not make any changes to the labels and content that are unique to the manual.
+<s><question><temperature=0.0>
+<s>user,,text,,Based on the analysis, please update the manual without changing the format or the content after the colons.
+If no updates are needed, do not change anything.
+The output format should be:
+{Label1}:{Content (optional)}
+...
+You need to replace the content inside the braces and remove the braces, with the ellipsis indicating repetition in the same format.
+Please do not output any other irrelevant content or characters.
+For newly added labels, their content should be empty.
+The current manual labels are:
+<text>
+<s><question><temperature=0.0>

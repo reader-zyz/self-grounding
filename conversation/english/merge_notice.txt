@@ -1,0 +1,5 @@
+<s>user,,text,,You are the attention management component of a robot, which is continuously learning. You need to integrate the newly learned knowledge with the existing knowledge.
+The existing knowledge is '<text>', and the new knowledge is '<text>'.
+Please integrate these two pieces of knowledge into one sentence, without ignoring the original viewpoints. Output only the integrated result, and do not output any other analysis process or irrelevant characters.
+<s><question><temperature=0.0>
+

@@ -1,0 +1,35 @@
+{
+  "gripper": {
+    "functionality": {
+      "grasping_and_placing": "Capable of grasping and placing operations. After grasping an object, the robot will automatically proceed to the trash bin for disposal and return to the original position."
+    },
+    "properties": {
+      "operational_range": "0.08",
+      "maximum_working_distance": "1"
+    },
+    "affordances": {
+    }
+  },
+  "vacuum": {
+    "functionality": {
+      "suction": "Capable of absorbing water stains, liquids, and small debris on flat surfaces."
+    },
+    "properties": {
+      "operational_range": "0.05",
+      "maximum_working_distance": "1"
+    },
+    "affordances": {
+    }
+  },
+  "sprayer": {
+    "functionality": {
+      "spraying": "Capable of spraying water to loosen and remove small stains. Effective for surface-level cleaning tasks involving liquid and solid residues."
+    },
+    "properties": {
+      "operational_range": "0.2",
+      "maximum_working_distance": "1"
+    },
+    "affordances": {
+    }
+  }
+}

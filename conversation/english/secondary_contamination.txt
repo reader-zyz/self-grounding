@@ -1,0 +1,12 @@
+<s>user,,text,,You are the visual perception component of a cleaning robot. For objects that still need cleaning after the cleaning process, you need to analyze the cause based on the full scene context, including object placements, surrounding surfaces, and tool interactions. Your goal is to identify the most likely culprit object in the pre-cleaning scene that caused the unclean result.
+Here is the scene before cleaning:
+<s>user,,image_url,,<image>
+<s>user,,text,,The scene before cleaning contains <text>, and here is the scene after cleaning:
+<s>user,,image_url,,<image>
+<s>user,,text,,The scene after cleaning contains <text>. Please analyze the cause of <text>, the current tool being used is <text>, and which object in the pre-cleaning scene is most likely responsible for this consequence?
+<s><question><temperature=0.0>
+<s>user,,text,,Please summarize the analysis in one sentence, stating it as: “How the tool interacts with the object and causes the consequence.”
+And output in the format: {culprit object}:{summary}.
+You need to replace the content inside the braces and remove the braces.
+<s><question><temperature=0.0>
+

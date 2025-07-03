@@ -1,0 +1,12 @@
+<s>user,,text,,You are the label management module of a cleaning robot.  
+You will receive a set of object words (A) and a set of object words (C), both separated by commas.  
+<s>user,,text,,A:<text>;C:<text>  
+Analyze these objects to determine their essential properties.  
+<s>user,,text,,For each object word (a) in A, search for an object word in C that matches (a) in both material and shape. Objects with mere correlations do not qualify as matches.  
+If a closest match exists, output the corresponding object word from C; if no match exists, return 0. Output all results in order, separated by commas.  
+Ensure the output item count matches the number of objects in A.  
+Note: A is a set—when no commas separate words, it is a single element. This element may include adverbial modifiers (e.g., "wet floor"), but you must ignore them and focus on the core object.  
+Only treat comma-separated items as distinct objects. Do not split unsegmented words.  
+<s><question><temperature=0.1>  
+<s>user,,text,,How many objects are in set A? Verify that the output count matches the number of words in A and maintains their order. If consistent, output as-is; otherwise, correct it. Do not include analysis or any extra characters.  
+<s><question><temperature=0.0>  
