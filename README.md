@@ -1,5 +1,5 @@
 # self-grounding
-video: https://youtu.be/ZvIQwwS53ns
+video: https://www.youtube.com/watch?v=1QePla6K_X8
 
 # Commercial confidentiality
 Due to commercial confidentiality, the data and robot primitives cannot be released publicly
