@@ -1,0 +1,3 @@
+
+    waddedpaper,gripper,1-100:None
+    

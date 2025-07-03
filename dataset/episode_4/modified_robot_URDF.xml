@@ -1,0 +1,226 @@
+<mujoco model="robot_URDF">
+    <compiler angle="radian" />
+    <include file="../models/scene_sim/basic_scene.xml" />
+    <size njmax="500" nconmax="100" />
+    <asset>
+        <mesh name="base_link" file="../models/meshs/base_link.STL" />
+        <mesh name="Link1" file="../models/meshs/Link1.STL" />
+        <mesh name="Link2" file="../models/meshs/Link2.STL" />
+        <mesh name="Link3" file="../models/meshs/Link3.STL" />
+        <mesh name="Link4" file="../models/meshs/Link4.STL" />
+        <mesh name="Link5" file="../models/meshs/Link5.STL" />
+        <mesh name="Link6" file="../models/meshs/Link6.STL" />
+        <mesh name="washbasin_old" file="../models/meshs/washbowl2_small5.STL" />
+        <mesh name="washbasin" file="../models/meshs/washbasin.obj" scale="1.6 1.6 1.6" />
+        <mesh name="bin" file="../models/meshs/bin500.STL" />
+        <mesh name="bottle" file="../models/meshs/bottle_100.STL" />
+        <mesh name="dirtywater" file="../models/meshs/dirtywater.STL" />
+        <mesh name="stain" file="../models/meshs/stain.obj" scale="0.25 0.25 0.25" />
+        <mesh name="zhituan" file="../models/meshs/zhituan_200.STL" />
+        <mesh name="popcan" file="../models/meshs/popcan.obj" scale="0.15 0.15 0.15" />
+        <mesh name="can" file="../models/meshs/can.obj" scale="0.15 0.15 0.15" />
+        <mesh name="chapai" file="../models/meshs/chapai.obj" scale="0.3 0.3 0.3" />
+        <mesh name="cookies" file="../models/meshs/cookies.obj" scale="0.3 0.3 0.3" />
+        <mesh name="suixie" file="../models/meshs/suixie.obj" scale="0.3 0.3 0.3" />
+        <mesh name="buildingblocks" file="../models/meshs/buildingblocks.obj" scale="0.6 0.6 0.6" />
+        <mesh name="scatteredbuildingblocks" file="../models/meshs/scatteredbuildingblocks.obj" scale="0.5 0.5 0.5" />
+        <texture name="water" type="cube" height="1" width="1" file="../models/textures/water.png" />
+        <material name="water" texture="water" texrepeat="3 3" texuniform="false" />
+        <texture name="stain" type="2d" file="../models/textures/stain.png" />
+        <material name="stain" texture="stain" />
+        <texture name="washbasin" type="2d" file="../models/textures/washbasin.png" />
+        <material name="washbasin" texture="washbasin" rgba="1 1 1 1" />
+        <texture name="bin" type="2d" height="1" width="1" file="../models/textures/bin.png" />
+        <material name="bin" texture="bin" texrepeat="5 5" texuniform="true" />
+        <texture name="T_ventionTable" type="cube" height="1" width="1" file="../models/textures/metal0.png" />
+        <material name="M_ventionTable" texture="T_ventionTable" texrepeat="3 3" texuniform="false" />
+        <texture name="T_Metal_bin" type="cube" height="1" width="1" file="../models/textures/stone0.png" />
+        <material name="M_Metal_bin" texture="T_Metal_bin" texrepeat="3 3" texuniform="false" />
+        <texture name="T_simpleWoodTable" type="cube" height="1" width="1" file="../models/textures/wood1.png" />
+        <material name="M_simpleWoodTable" texture="T_simpleWoodTable" rgba="0.8 0.8 0.8 1" shininess="0.2" texuniform="false" />
+        <texture name="popcan" type="2d" file="../models/textures/Diffuse_Bake1.png" />
+        <material name="popcan" texture="popcan" rgba="1 1 1 1" />
+        <texture name="can" type="2d" file="../models/textures/Diffuse_Bake2.png" />
+        <material name="can" texture="can" rgba="1 1 1 1" />
+        <texture name="chapai" type="2d" file="../models/textures/chapai.png" />
+        <material name="chapai" texture="chapai" rgba="1 1 1 1" />
+        <texture name="cookies" type="2d" file="../models/textures/cookies.png" />
+        <material name="cookies" texture="cookies" rgba="1 1 1 1" />
+        <texture name="suixie" type="2d" file="../models/textures/suixie.png" />
+        <material name="suixie" texture="suixie" rgba="1 1 1 1" />
+        <texture name="buildingblocks" type="2d" file="../models/textures/buildingblocks.png" />
+        <material name="buildingblocks" texture="buildingblocks" rgba="1 1 1 1" />
+        <texture name="scatteredbuildingblocks" type="2d" file="../models/textures/scatteredbuildingblocks.png" />
+        <material name="scatteredbuildingblocks" texture="scatteredbuildingblocks" rgba="1 1 1 1" />
+    </asset>
+    
+<visual>
+    <global offwidth="1080" />
+</visual>
+<visual>
+    <global offheight="1080" />
+</visual>
+
+    <default>
+        <default class="viz_simpleWoodTable">
+            <geom rgba=".5 0 0 1" material="M_simpleWoodTable" />
+        </default>
+        <default class="vention">
+            <geom rgba=".5 .2 0 1" material="M_ventionTable" />
+        </default>
+        <default class="wheel">
+            <geom type="cylinder" size=".08 .01" rgba="1 1 1 1" mass="1" />
+        </default>
+        <joint damping=".3" />
+    </default>
+
+    <worldbody>
+        <body name="robot" pos="-0.28980876368756103 1.8866108493914364 0"> 
+            <freejoint />
+            <geom type="mesh" rgba="1 1 1 1" mesh="base_link" />
+            <body name="Link1" pos="0.043361 0.0028796 0.7487" quat="0.707105 0.707108 0 0">
+                <inertial pos="0.043388 0.054274 -0.007474" quat="-0.268996 0.78159 -0.0559527 0.560025" mass="0.92303" diaginertia="0.00221535 0.00217147 0.000655483" />
+                <joint name="Joint1" pos="0 0 0" axis="0 1 0" damping="5" stiffness="10" armature="0.01" />
+                <geom type="mesh" rgba="1 1 1 1" mesh="Link1" />
+                <body name="Link2" pos="0.08594 0.067 -0.048108">
+                    <inertial pos="-0.05881 0.1622 -0.042013" quat="0.406033 0.579598 -0.406005 0.578241" mass="1.5577" diaginertia="0.0265751 0.026358 0.000979553" />
+                    <joint name="Joint2" pos="0 0 0" axis="0.001253 0 0.999999" damping="5" stiffness="100" armature="0.01" />
+                    <geom type="mesh" rgba="1 1 1 1" mesh="Link2" />
+                    <body name="Link3" pos="-0.12943 0.35728 -0.0058377">
+                        <inertial pos="0.01456 0.039835 0.048639" quat="0.628339 0.656099 -0.4102 0.0803762" mass="0.71554" diaginertia="0.00143577 0.00140909 0.000473539" />
+                        <joint name="Joint3" pos="0 0 0" axis="-0.001253 0 -0.999999" damping="5" stiffness="100" armature="0.01" />
+                        <geom type="mesh" rgba="1 1 1 1" mesh="Link3" />
+                        <body name="Link4" pos="0.067547 0.082861 0.053824">
+                            <inertial pos="0.13787 0.025389 0.033273" quat="0.500957 0.395868 0.467648 0.611257" mass="0.69691" diaginertia="0.00715294 0.00713578 0.000319069" />
+                            <joint name="Joint4" pos="0 0 0" axis="-0.982856 -0.184369 0.0012316" stiffness="5" armature="0.01" />
+                            <geom type="mesh" rgba="1 1 1 1" mesh="Link4" />
+                            <body name="Link5" pos="0.31776 0.058872 0.051088">
+                                <inertial pos="0.053158 0.0043004 -0.046728" quat="0.463094 0.43391 0.695521 0.336923" mass="0.50483" diaginertia="0.000483742 0.000482013 0.000210185" />
+                                <joint name="Joint5" pos="0 0 0" axis="0.0038009 -0.013583 0.999901" stiffness="5" armature="0.01" />
+                                <geom type="mesh" rgba="1 1 1 1" mesh="Link5" />
+                                <body name="Link6" pos="0.082598 0.0065491 -0.05153">
+                                    <inertial pos="0.031977 0.0019108 2.3208e-05" quat="0.586587 0.408309 0.567304 0.409103" mass="0.14814" diaginertia="7.29334e-05 6.98713e-05 6.27383e-05" />
+                                    <joint name="Joint6" pos="0 0 0" axis="-0.997507 -0.0705058 0.00283399" stiffness="5" armature="0.01" />
+                                    <camera name="cam" mode="fixed" pos=".1 0 0" euler="1.57 -2 1.57" resolution="1080 1080" sensorsize="50 50" focal="24 24" principal="0 0" />
+                                    <geom type="mesh" rgba="0.79216 0.81961 0.93333 1" mesh="Link6" />
+                                    
+                                    
+                                </body>
+                            </body>
+                        </body>
+                    </body>
+                </body>
+            </body>
+
+            <body name="left wheel 1" pos="0.15 0.2 0.08" zaxis="0 1 0">
+                <geom class="wheel" />
+                <joint name="left1" />
+            </body>
+            <body name="left wheel 2" pos="-0.25 0.2 0.08" zaxis="0 1 0">
+                <geom class="wheel" />
+                <joint name="left2" />
+            </body>
+            <body name="right wheel 1" pos="0.15 -0.2 0.08" zaxis="0 1 0">
+                <geom class="wheel" />
+                <joint name="right1" />
+            </body>
+            <body name="right wheel 2" pos="-0.25 -0.2 0.08" zaxis="0 1 0">
+                <geom class="wheel" />
+                <joint name="right2" />
+            </body>
+        </body>
+
+        <body name="simpleWoodTable" pos="0.3907233458435462 0.12393856443634821 0" quat="0.7887337836408046 0.0 0.0 0.6147349172966022">
+            <geom name="table" class="viz_simpleWoodTable" type="box" size=".6 .375 .025" pos="0 0 0.735" />
+            <geom name="table1" class="viz_simpleWoodTable" type="box" size="0.59 0.26 .05" pos="0 0 0.66" />
+            <geom name="table2" class="viz_simpleWoodTable" type="box" size="0.025 0.025 0.305" pos="-0.565 0.235 0.305" />
+            <geom name="table3" class="viz_simpleWoodTable" type="box" size="0.025 0.025 0.305" pos="-0.565 -0.235 0.305" />
+            <geom name="table4" class="viz_simpleWoodTable" type="box" size="0.025 0.025 0.305" pos="0.565 0.235 0.305" />
+            <geom name="table5" class="viz_simpleWoodTable" type="box" size="0.025 0.025 0.305" pos="0.565 -0.235 0.305" />
+        </body>
+
+        <body name="simpleWoodTable_can" pos="0.3907233458435462 0.12393856443634821 0.76" quat="0.7887337836408046 0.0 0.0 0.6147349172966022">
+        <freejoint/>
+            <geom name="simpleWoodTable_can" type="mesh" mesh="can" material="can" pos="-0.1 0.3 0.075" quat="0 0 0.707 0.707" mass="0.1" rgba="1 1 1 1" />
+        </body>
+
+        
+        <body name="simpleWoodTable_stain" pos="0 10 0" quat="0.7887337836408046 0.0 0.0 0.6147349172966022">
+        <freejoint/>
+            <geom name="simpleWoodTable_stain" type="mesh" mesh="stain" pos="-0.1 0.3 0.01" quat="0 0 0.707 0.707" rgba="0 0 0 0.5" />
+        </body>
+
+        
+        <body name="simpleWoodTable_waddedpaper" pos="0.3907233458435462 0.12393856443634821 0.76" quat="0.7887337836408046 0.0 0.0 0.6147349172966022">
+        <freejoint/>
+            <geom name="simpleWoodTable_waddedpaper" type="mesh" mesh="zhituan" pos="-0.2 -0.1 0.1" rgba="1 1 1 1" />
+        </body>
+
+        <body name="washbasin" pos="-3.4351477857743014 1.0806760802922324 0.35" quat="0.6131016152479875 0.0 0.0 0.7900040565594006">
+            <geom name="washbasin" type="mesh" mesh="washbasin" mass="2" quat="0.707 0.707 -0.707 -0.707" rgba="1 1 1 10" material="washbasin" contype="0" conaffinity="0" />
+            <geom name="basin_box" type="box" size="0.5 0.5 0.37" pos="0.1 0 0" rgba="1 0 0 0" contype="1" conaffinity="1" />
+        </body>
+
+        <body name="washbasin_stain" pos="-3.4351477857743014 1.0806760802922324 0.43" quat="0.6131016152479875 0.0 0.0 0.7900040565594006">
+        <freejoint/>
+            <geom name="washbasin_stain" type="mesh" mesh="stain" pos="0 0 0" quat="0 0 0.707 0.707" rgba="0 0 0 1" />
+        </body>
+
+        <body name="wall">
+            <geom name="wall1" pos="6 0.5 0" type="box" size="0.05 4.5 4" rgba="2 1 1 1" />
+            <geom name="wall2" pos="-6 0.5 0" type="box" size="0.05 4.5 4" rgba="1 1 1 1" />
+            <geom name="wall3" pos="0 4.95 0" type="box" size="5.95 0.05 4" rgba="1 1 1 1" />
+            <geom name="wall4" pos="0 -3.95 0" type="box" size="5.95 0.05 4" rgba="1 1 1 1" />
+        </body>
+
+        <body name="floor_stain" pos="2.2926888008384525 2.6896462053281924 0" quat="0.9148546524455409 0.0 0.0 0.40378331428966774">
+            <freejoint/>
+            <geom name="floor_stain" type="mesh" mesh="stain" quat="0 0 0.707 0.707" rgba="0 0 0 0.5" />
+        </body>
+
+        <body name="floor_waddedpaper" pos="3.7000697204531354 -1.3889050893336612 0" quat="0.9833661850055324 0.0 0.0 0.18163409973808597">
+            <freejoint/>
+            <geom name="floor_waddedpaper" type="mesh" mesh="zhituan" rgba="1 1 1 1" />
+        </body>
+
+        
+        
+
+        
+        
+
+        
+        
+
+    </worldbody>
+
+    <tendon> 
+        <fixed name="forward">
+            <joint joint="left1" coef="10" />
+            <joint joint="left2" coef="10" />
+            <joint joint="right1" coef="10" />
+            <joint joint="right2" coef="10" />
+        </fixed>
+
+        <fixed name="turn">
+            <joint joint="left1" coef="50" />
+            <joint joint="left2" coef="50" />
+            <joint joint="right1" coef="-50" />
+            <joint joint="right2" coef="-50" />
+        </fixed>
+    </tendon>
+
+    <actuator>
+        <motor name="forward" tendon="forward" ctrlrange="-1 1" />
+        <motor name="turn" tendon="turn" ctrlrange="-1 1" />
+
+        
+        <motor name="Joint1" joint="Joint1" gear="70" />
+        <motor name="Joint2" joint="Joint2" gear="50" />
+        <motor name="Joint3" joint="Joint3" gear="50" />
+        <motor name="Joint4" joint="Joint4" gear="10" />
+        <motor name="Joint5" joint="Joint5" gear="10" />
+        <motor name="Joint6" joint="Joint6" gear="10" />
+    </actuator>
+
+</mujoco>

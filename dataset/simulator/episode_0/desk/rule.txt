@@ -1,4 +1,0 @@
-can,gripper,1-50:stain,51-100:None
-stain,vacuum,1-100:None
-stain,rag,1-100:None
-waddedpaper,gripper,1-100:None

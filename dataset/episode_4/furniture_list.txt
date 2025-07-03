@@ -1,0 +1,4 @@
+simpleWoodTable
+washbasin
+floor_waddedpaper
+floor_stain

@@ -1,0 +1,4 @@
+
+    stain,vacuum,1-100:None
+    stain,rag,1-100:None
+    
