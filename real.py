@@ -139,7 +139,7 @@ if __name__ == '__main__':
         episode.state = navigation_point
         logging.info(f'going to: {navigation_point}')
         # 导航到导航点
-        # robot.move_to(navigation_point)
+        robot.move_to(navigation_point)
         # 根据导航点设置近距离观察角度
         observation_joint = GROUND_OBS_JOINT
         temp = ''.join([navigation_point.upper(), '_OBS_JOINT'])
@@ -159,25 +159,71 @@ if __name__ == '__main__':
             robot.scene_mem.add(g_label, label=label)
         logging.info(f'before objects: {list2str(robot.scene_mem.get_values_by_key("label"))}')
         
-        logging.info(f"going to grounding, labels: {g_labels}, len: {len(g_labels.split(','))}")
-        blend_img, g_labels, masks = robot.infer_img(color_image, union_str(g_labels), output_path=f'vis/{navigation_point}.png')
+        if grounding_enable:
+            logging.info(f"going to grounding, labels: {g_labels}, len: {len(g_labels.split(','))}")
+            blend_img, g_labels, masks = robot.infer_img(color_image, union_str(g_labels), output_path=f'vis/{navigation_point}.png')
+            
+            # 将labels还原回输入
+            for i in range(len(g_labels)):
+                g_labels[i] = separate_str(g_labels[i])
+            
+            logging.info(f"after SAM labels: {g_labels}, len masks: {len(masks)}")
+            for g_label, mask in zip(g_labels, masks):
+                # 对图像进行腐蚀
+                if erode_size > 1:
+                    mask = erode_mask(mask, erode_size)
+                robot.scene_mem.update('g_label', g_label, 'mask', mask)
+            # 删除所有没有mask的物体
+            for g_label in robot.scene_mem.get_values_by_key('g_label'):
+                if robot.scene_mem.get('g_label', g_label)[0]['mask'] is None:
+                    robot.scene_mem.delete('g_label', g_label)
+
+            if point_cloud_enable:
+                depth_img = np.load(get_corresponding_npy_path(observation_path))
+                label_keys = robot.scene_mem.get_values_by_key('label')
+
+                for label_key in label_keys:
+                    mask_bool = robot.scene_mem.get('label', label_key)[0]['mask'].astype(np.bool_)
+                    pc = depth2pc(depth_img)  # (H, W, 3)
+                    masked_pc = pc[mask_bool]
+
+                    # 计算中心坐标
+                    mean_xyz = np.mean(masked_pc, axis=0)
+                    
+                    # 计算中心到原点的欧氏距离
+                    distance_to_origin = np.linalg.norm(mean_xyz)
+
+                    if len(masked_pc) > 1:
+                        # 计算AABB边界框的尺寸（X/Y/Z方向的边长）
+                        min_coords = np.min(masked_pc, axis=0)
+                        max_coords = np.max(masked_pc, axis=0)
+                        ranges = max_coords - min_coords  # [ΔX, ΔY, ΔZ]
+
+                        # 计算平均尺寸（三个轴向的平均边长）
+                        avg_size = np.mean(ranges) / 2
+                    else:
+                        avg_size = 0.0
+
+                    # 存储结果
+                    robot.scene_mem.update('label', label_key, 'cor', mean_xyz)
+                    robot.scene_mem.update('label', label_key, 'size', avg_size)
+                    robot.scene_mem.update('label', label_key, 'dis', distance_to_origin)
+                    logging.info(f'Added cor: {mean_xyz}, size: {avg_size:.3f}, dis: {distance_to_origin:.3f} to scene mem: {label_key}')
+
+            # 分析空间关系
+            label_list = label_keys
+            spatial_description = ''
+            # 描述阶段==============
+            for i in range(len(label_list) - 1):
+                for j in range(i + 1, len(label_list)):
+                    relation = get_spatial_relation(robot.scene_mem.get('label', label_list[i])[0]['cor'], robot.scene_mem.get('label', label_list[j])[0]['cor'])
+                    spatial_description = ','.join([spatial_description, f'{label_list[j]} is {relation} {label_list[i]}']).strip(',')
+                    print(f'{label_list[j]} is {relation} {label_list[i]}')
+        extra_txt = []
+        if 'space' in plan_mode:
+            extra_txt.append(spatial_description)
         
-        # 将labels还原回输入
-        for i in range(len(g_labels)):
-            g_labels[i] = separate_str(g_labels[i])
-        
-        logging.info(f"after SAM labels: {g_labels}, len masks: {len(masks)}")
-        for g_label, mask in zip(g_labels, masks):
-            # 对图像进行腐蚀
-            if erode_size > 1:
-                mask = erode_mask(mask, erode_size)
-            robot.scene_mem.update('g_label', g_label, 'mask', mask)
-        # 删除所有没有mask的物体
-        for g_label in robot.scene_mem.get_values_by_key('g_label'):
-            if robot.scene_mem.get('g_label', g_label)[0]['mask'] is None:
-                robot.scene_mem.delete('g_label', g_label)
-        
-        action_objects = robot.plan_only(','.join(robot.scene_mem.get_values_by_key("label")), blend_img)
+        original_actions = robot.plan_only(','.join(robot.scene_mem.get_values_by_key("label")), blend_img, mode=['space', 'size'], extra_txt=extra_txt)
         logging.info(f"action_objects: {action_objects}")
         if action_objects != '0':
             # 对于每一个动作

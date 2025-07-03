@@ -124,7 +124,7 @@ if __name__ == '__main__':
     robot.conversation_dir = config.get('PATH', 'conversation_dir')
     
     # 写入日志
-    logging.info(f"start, mode: real")
+    logging.info(f"start, mode: sim")
     # 清理可视化文件夹
     clean_directory('vis')
 
@@ -133,9 +133,6 @@ if __name__ == '__main__':
 # ==========================================================================================
 
     spawn_images = load_image_pairs(dataset_path)
-    # img = pil2np(Image.open('./pc_scene.png'))
-    # depth_img = np.load('./pc_scene.npy')
-    # spawn_images = [[img, depth_img]]
     
         
     # 处理所有出生点观测的图像
@@ -266,8 +263,8 @@ if __name__ == '__main__':
                 for i in range(len(label_list) - 1):
                     for j in range(i + 1, len(label_list)):
                         relation = get_spatial_relation(robot.scene_mem.get('label', label_list[i])[0]['cor'], robot.scene_mem.get('label', label_list[j])[0]['cor'])
-                        spatial_description = ','.join([spatial_description, f'{label_list[j]}在{label_list[i]}的{relation}方']).strip(',')
-                        print(f'{label_list[j]}在{label_list[i]}的{relation}方')
+                        spatial_description = ','.join([spatial_description, f'{label_list[j]} is {relation} {label_list[i]}']).strip(',')
+                        print(f'{label_list[j]} is {relation} {label_list[i]}')
             extra_txt = []
             if 'space' in plan_mode:
                 extra_txt.append(spatial_description)
